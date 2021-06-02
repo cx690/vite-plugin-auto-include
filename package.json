@@ -1,0 +1,37 @@
+{
+  "name": "vite-plugin-auto-include",
+  "version": "1.0.0",
+  "description": "A tool that can auto add babel-plugin-import's result to vite's Pre-bundling dependencies.",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "author": "caixue <caixue233@gmail.com>",
+  "types": "esm/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "cjs",
+    "esm"
+  ],
+  "scripts": {
+    "build": "tsc && tsc --outDir ./cjs --module commonjs"
+  },
+  "devDependencies": {
+    "@types/node": "^15.6.1",
+    "typescript": "^4.3.2",
+    "vite": "^2.3.6"
+  },
+  "peerDependencies": {
+    "vite": "^2.0.0"
+  },
+  "keywords": [
+    "auto-include",
+    "vite-plugin",
+    "vite",
+    "babel-plugin-import"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "repository": {
+    "url": "https://github.com/cx690/vite-plugin-auto-include"
+  }
+}
