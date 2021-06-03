@@ -5,7 +5,7 @@
 
 ## 安装
 
-`yarn add vite-plugin-auto-include 或者 npm install vite-plugin-auto-include`
+`yarn add vite-plugin-auto-include --dev 或者 npm install vite-plugin-auto-include -D`
 
 ## 用法
 
@@ -35,6 +35,11 @@ interface AutoIncludeOpt {
     libraryDirectory?: string;
     /** default style */
     styleLibraryDirectory?: string;
+    /** 
+     * - true => index.js;
+     * - string => string.js;  for example: if set css , will return css.js;
+     * - function => path; 注意：如果要直接返回css，请不要返回除了.css以外的其他css预处理器文件，如less，stylus等;
+     */
     style?: true | 'css' | ((name: string, path?: string) => string | null | undefined);
     /** 有的目录不是ui组件目录，可以在此忽略 */
     ignoreDirs?: string[];
@@ -47,7 +52,7 @@ interface AutoIncludeOpt {
     libraryDirectory: 'es',
     style: (name) => {
       if (name === '_util' || name === 'locale'|| name==='style') return null;
-      return `antd/es/${name}/style`;
+      return `antd/es/${name}/style`;//实际文件：`antd/es/${name}/style/index.js`
     },
   }),
   //or

@@ -7,7 +7,12 @@ interface AutoIncludeOpt {
     libraryDirectory?: string;
     /** default style */
     styleLibraryDirectory?: string;
-    style?: true | 'css' | ((name: string, path?: string) => string | null | undefined);
+    /** 
+     * - true => index.js;
+     * - string => string.js;  for example: if set css , will return css.js;
+     * - function => path; notice : can't return .less or .scss or .stylus;
+     */
+    style?: true | string | ((name: string, path?: string) => string | null | undefined);
     /** ignore some conponet's directory */
     ignoreDirs?: string[];
 }
@@ -52,8 +57,8 @@ function autoInclude(option: AutoIncludeOpt | AutoIncludeOpt[]) {
                         if (files.includes(styleLibraryDirectory)) {
                             if (style === true) {
                                 includeCSS.push(`${dirRtn}/${name}/${styleLibraryDirectory}`);
-                            } else if (style === 'css') {
-                                includeCSS.push(`${dirRtn}/${name}/${styleLibraryDirectory}/css`);
+                            } else if (typeof style === 'string' && style !== '') {
+                                includeCSS.push(`${dirRtn}/${name}/${styleLibraryDirectory}/${style}`);
                             }
                         }
                     }

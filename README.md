@@ -7,7 +7,7 @@ Use this tool,it can auto add to vite's Pre-bundling dependencies.
 
 ## Install
 
-`yarn add vite-plugin-auto-include or npm install vite-plugin-auto-include`
+`yarn add vite-plugin-auto-include --dev or npm install vite-plugin-auto-include -D`
 
 ## Usage
 
@@ -37,7 +37,12 @@ interface AutoIncludeOpt {
     libraryDirectory?: string;
     /** default style */
     styleLibraryDirectory?: string;
-    style?: true | 'css' | ((name: string, path?: string) => string | null | undefined);
+    /** 
+     * - true => index.js;
+     * - string => string.js;  for example: if set css , will return css.js;
+     * - function => path; notice : can't return .less or .scss or .stylus;
+     */
+    style?: true | string | ((name: string, path?: string) => string | null | undefined);
     /** ignore some conponet's directory */
     ignoreDirs?: string[];
 }
@@ -49,7 +54,7 @@ For Example:
     libraryDirectory: 'es',
     style: (name) => {
       if (name === '_util' || name === 'locale'|| name==='style') return null;
-      return `antd/es/${name}/style`;
+      return `antd/es/${name}/style`;//real fiel：`antd/es/${name}/style/index.js`
     },
   }),
   //or
